@@ -19,10 +19,13 @@
 
     function addTask() {
       if(newTask.value !== ""){
-        console.log("value added.....");
         tasks.value.push(newTask.value);
         newTask.value = "";
       }
+    }
+
+    function deleteTask(index) {
+      tasks.value.splice(index,1);
     }
 
 </script>
@@ -32,14 +35,17 @@
 <button @click="toggleStatus">Toggle Status</button>
 
 <p>Below are the tasks that you need to complete:</p>
-<ul v-for="task in tasks" v-bind:key="task">
-  <li>{{task}}</li>
+<ul v-for="(task,index) in tasks" v-bind:key="task">
+  <li>
+    <span>{{task}} </span>
+    <button @click="deleteTask(index)">X</button>
+  </li>
 </ul>
 
 <hr>
 
 <form @submit.prevent="addTask">
-  <label for="newTask"></label>
+  <label for="newTask">New Task</label>
   <input type="text" id="newTask" name="newTask" v-model="newTask"  >
   <button type="submit">Submit</button>
 </form>
